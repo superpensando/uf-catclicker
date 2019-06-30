@@ -9,14 +9,13 @@ class Cat {
     }
 }
 
-const cat1 =   new Cat("Cala","img/catcute1.jpg");
-const cat2 =   new Cat("Brave","img/catcute2.jpg");
-
-
 var allCats = [];
 allCats.push(
-    cat1,
-    cat2 
+    new Cat("Cala","img/catcute1.jpg"),
+    new Cat("Brave","img/catcute2.jpg"),
+    new Cat("Flaca","img/catcute1.jpg"),
+    new Cat("Luke","img/catcute2.jpg"),
+    new Cat("Leia","img/catcute1.jpg")
 );
 
 //console.log(allCats);
@@ -35,7 +34,7 @@ for ( cat of allCats) {
     newImage.setAttribute("title", cat.name);
 
     const newClick = document.createElement('p');
-    newClick.id = "catClicks";
+    newClick.className = "catClicks";
     
     const newContent = document.createElement("article"); 
     newContent.appendChild(newName);

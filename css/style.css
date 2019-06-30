@@ -28,23 +28,35 @@ body {
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    font-size:3rem; 
+    color: #777;
+}
+
+section {
+    width:100%;
     color: #aa7ecd;
+}
+
+article {
+    width:20%;
+    float:left;
 }
 
 
 .catName {
     text-align: center; 
-    color: #aa7ecd;
+    font-size:2rem; 
 }
 
 #catImage{
     border: 5px solid #aa7ecd;
-    max-height:10rem; 
+    width:100%; 
     cursor: pointer;
 }
 
-.count {
-    margin: 20px 0; 
-    color: #aa7ecd;
-    font-size:2rem; 
+.catClicks {
+    text-align: center;
+    margin: 20px 0;
+    font-size:1.5rem;
+    color:grey;  
 }
