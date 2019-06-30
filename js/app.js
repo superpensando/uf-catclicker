@@ -1,21 +1,51 @@
+let click0 = 0;
+let click1 = 0; 
+let click2 = 0;
+let click3 = 0;
+let click4 = 0;
+let click  = 0; 
+let allCats = [];
+
 class Cat {
     constructor(name, image) {
         this.name = name;
         this.image = image;
     }
 
-    catClicks(event,counts) {
-        const thisClicks = event.path[0].nextSibling.textContent= counts +"Cliks"; 
+    catClicks(event, imagesnumber) {
+        switch (imagesnumber) {
+            case 0:  
+            click0 += 1; 
+            click = click0;
+            break;
+            case 1:
+            click1 += 1;
+            click = click1;   
+            break; 
+            case 2:
+            click2 += 1;
+            click = click2;   
+            break; 
+            case 3:
+            click3 += 1;
+            click = click3;   
+            break; 
+            case 4:
+            click4 += 1;
+            click = click4;   
+            break; 
+        }
+        event.path[0].nextSibling.textContent= click +"Cliks";
     }
 }
 
-var allCats = [];
+
 allCats.push(
     new Cat("Cala","img/catcute1.jpg"),
     new Cat("Brave","img/catcute2.jpg"),
-    new Cat("Flaca","img/catcute1.jpg"),
-    new Cat("Luke","img/catcute2.jpg"),
-    new Cat("Leia","img/catcute1.jpg")
+    new Cat("Flaca","img/catcute3.jpg"),
+    new Cat("Luke","img/catcute4.jpg"),
+    new Cat("Leia","img/catcute5.jpg")
 );
 
 //console.log(allCats);
@@ -29,7 +59,7 @@ for ( cat of allCats) {
     newName.textContent = cat.name;
 
     const newImage = document.createElement('img'); 
-    newImage.id = "catImage";
+    newImage.className = "catImage";
     newImage.setAttribute("src", cat.image);
     newImage.setAttribute("title", cat.name);
 
@@ -48,9 +78,8 @@ cats.appendChild(fragment);
 
 var catImages = document.querySelectorAll("img");
 for (let i=0; i<catImages.length; i++ ) {  
-    catImage[i].addEventListener('click', function(){
+    catImages[i].addEventListener('click', function(){
         cat.catClicks(event, i);
-        i++; 
     });
 }
 

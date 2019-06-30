@@ -48,7 +48,7 @@ article {
     font-size:2rem; 
 }
 
-#catImage{
+.catImage{
     border: 5px solid #aa7ecd;
     width:100%; 
     cursor: pointer;
