@@ -5,52 +5,114 @@ class Cat {
     }
 
     catClicks(event,counts) {
-        const thisClicks = event.path[0].nextSibling.textContent= counts +"Cliks"; 
+        console.log(counts);
+        event.path[0].nextSibling.textContent = counts +"Cliks";
+    }
+
+    catSelected(event, counts) {
+        const selectedCatContent = document.querySelector(".cats");
+        selectedCat = [];
+        selectedCatContent.innerHTML="";
+
+        const selectedCatImage = event.path[0].attributes.src.nodeValue;
+        const seletedCatName = event.path[0].previousSibling.innerText;
+
+        selectedCat.push(
+            new Cat(seletedCatName,selectedCatImage)
+        )
+        castList(selectedCat, selectedCatContent,1);
     }
 }
 
 var allCats = [];
+var selectedCat = [];
 allCats.push(
     new Cat("Cala","img/catcute1.jpg"),
     new Cat("Brave","img/catcute2.jpg"),
-    new Cat("Flaca","img/catcute1.jpg"),
-    new Cat("Luke","img/catcute2.jpg"),
-    new Cat("Leia","img/catcute1.jpg")
+    new Cat("Flaca","img/catcute3.jpg"),
+    new Cat("Luke","img/catcute4.jpg"),
+    new Cat("Leia","img/catcute5.jpg")
 );
 
-//console.log(allCats);
-
-const cats = document.querySelector(".cats");
-const fragment = document.createDocumentFragment();
-for ( cat of allCats) { 
-      
-    const newName = document.createElement("p");
-    newName.className = "catName";
-    newName.textContent = cat.name;
-
-    const newImage = document.createElement('img'); 
-    newImage.id = "catImage";
-    newImage.setAttribute("src", cat.image);
-    newImage.setAttribute("title", cat.name);
-
-    const newClick = document.createElement('p');
-    newClick.className = "catClicks";
-    
-    const newContent = document.createElement("article"); 
-    newContent.appendChild(newName);
-    newContent.appendChild(newImage); 
-    newContent.appendChild(newClick);
-
-    fragment.appendChild(newContent);    
-} 
-cats.appendChild(fragment);
 
 
-var catImages = document.querySelectorAll("img");
+function castList (array, content, type) {
+  
+    const fragment = document.createDocumentFragment();
+    for ( item of array) { 
+        
+        const newName = document.createElement("p");
+        newName.className = "catName";
+        newName.textContent = item.name;
+
+        const newImage = document.createElement('img');
+        newImage.setAttribute("src", item.image);
+        newImage.setAttribute("title", item.name);
+
+        const newClick = document.createElement('p');
+           
+        const newContent = document.createElement("article"); 
+
+        switch (type) {
+            case 0:
+            newImage.className = "catImage";
+            newContent.className = "catArticle";
+            newClick.className = "catClicks";
+            break;
+            case 1: 
+            newImage.className = "catImageSelected";
+            newContent.className = "catArtibleSeleted";
+            newClick.className = "catClicksSelected";
+            break;
+        }
+
+        newContent.appendChild(newName);
+        newContent.appendChild(newImage); 
+        newContent.appendChild(newClick);
+
+        fragment.appendChild(newContent);    
+    } 
+    content.appendChild(fragment);
+}
+
+const catListContent= document.querySelector(".cats-list");
+castList(allCats, catListContent , 0);
+
+
+//Requirement 1
+/*var catImages = document.querySelectorAll("img.catImage");
 for (let i=0; i<catImages.length; i++ ) {  
-    catImage[i].addEventListener('click', function(){
-        cat.catClicks(event, i);
+    catImages[i].addEventListener('click', function(){
+        item.catClicks(event, i);
+        i++; 
+    });
+}*/
+
+
+//Requirement 2
+var catImages = document.querySelectorAll("img.catImage");
+for (let i=0; i<catImages.length; i++ ) {  
+    catImages[i].addEventListener('click', function(){
+        item.catSelected(event, i);
+        catClicks();
         i++; 
     });
 }
+
+function catClicks() {
+    var catImagesSelected = document.querySelectorAll("img.catImageSelected");
+    console.log(catImagesSelected);
+    for (let i=0; i<catImagesSelected.length; i++ ) {  
+        catImagesSelected[i].addEventListener('click', function(){
+            item.catClicks(event, i);
+            i++; 
+        });
+    }
+}
+
+
+
+
+
+
 

@@ -37,7 +37,13 @@ section {
     color: #aa7ecd;
 }
 
-article {
+section.cats {
+    width:50%;
+    border: 5px dotted #aa7ecd;
+    min-height:30rem; 
+}
+
+article.catArticle {
     width:20%;
     float:left;
 }
@@ -48,13 +54,13 @@ article {
     font-size:2rem; 
 }
 
-#catImage{
+.catImage, .catImageSelected {
     border: 5px solid #aa7ecd;
     width:100%; 
     cursor: pointer;
 }
 
-.catClicks {
+.catClicks, .catClicksSelected {
     text-align: center;
     margin: 20px 0;
     font-size:1.5rem;
