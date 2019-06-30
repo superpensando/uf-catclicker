@@ -31,8 +31,15 @@ h1 {
     color: #aa7ecd;
 }
 
-.main #catcute{
+
+.catName {
+    text-align: center; 
+    color: #aa7ecd;
+}
+
+#catImage{
     border: 5px solid #aa7ecd;
+    max-height:10rem; 
     cursor: pointer;
 }
 
