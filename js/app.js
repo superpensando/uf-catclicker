@@ -1,12 +1,17 @@
+let click = 0; 
+let allCats = [];
+let selectedCat = [];
+
+
 class Cat {
     constructor(name, image) {
         this.name = name;
         this.image = image;
     }
 
-    catClicks(event,counts) {
-        console.log(counts);
-        event.path[0].nextSibling.textContent = counts +"Cliks";
+    catClicks(event) {
+        click += 1; 
+        event.path[0].nextSibling.textContent = click +"Cliks";
     }
 
     catSelected(event, counts) {
@@ -24,8 +29,7 @@ class Cat {
     }
 }
 
-var allCats = [];
-var selectedCat = [];
+
 allCats.push(
     new Cat("Cala","img/catcute1.jpg"),
     new Cat("Brave","img/catcute2.jpg"),
@@ -79,17 +83,7 @@ const catListContent= document.querySelector(".cats-list");
 castList(allCats, catListContent , 0);
 
 
-//Requirement 1
-/*var catImages = document.querySelectorAll("img.catImage");
-for (let i=0; i<catImages.length; i++ ) {  
-    catImages[i].addEventListener('click', function(){
-        item.catClicks(event, i);
-        i++; 
-    });
-}*/
 
-
-//Requirement 2
 var catImages = document.querySelectorAll("img.catImage");
 for (let i=0; i<catImages.length; i++ ) {  
     catImages[i].addEventListener('click', function(){
@@ -101,11 +95,9 @@ for (let i=0; i<catImages.length; i++ ) {
 
 function catClicks() {
     var catImagesSelected = document.querySelectorAll("img.catImageSelected");
-    console.log(catImagesSelected);
     for (let i=0; i<catImagesSelected.length; i++ ) {  
         catImagesSelected[i].addEventListener('click', function(){
-            item.catClicks(event, i);
-            i++; 
+            item.catClicks(event);
         });
     }
 }
