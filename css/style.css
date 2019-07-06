@@ -32,29 +32,49 @@ h1 {
     color: #777;
 }
 
-section {
+section.cats-list {
     width:100%;
-    color: #aa7ecd;
+    color: white;
+    overflow: hidden;
+    border:5px solid #aa7ecd;
+    background-color:  #aa7ecd;
 }
 
-article {
+section.cats {
+    width:30%;
+    border: 5px solid #aa7ecd;
+    min-height:30rem;
+    margin:1rem 0; 
+
+}
+
+article.catArticle {
     width:20%;
     float:left;
+}
+
+article.catArticle img {
+    display:block; 
+    width:auto;
+    max-width:100%; 
+    margin:0 auto;
+    padding:0.5rem; 
+    height:10rem; 
 }
 
 
 .catName {
     text-align: center; 
     font-size:2rem; 
+    margin:0.5rem; 
 }
 
-.catImage{
-    border: 5px solid #aa7ecd;
+.catImage, .catImageSelected {
     width:100%; 
     cursor: pointer;
 }
 
-.catClicks {
+.catClicks, .catClicksSelected {
     text-align: center;
     margin: 20px 0;
     font-size:1.5rem;

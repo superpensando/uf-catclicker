@@ -1,85 +1,174 @@
-let click0 = 0;
-let click1 = 0; 
-let click2 = 0;
-let click3 = 0;
-let click4 = 0;
-let click  = 0; 
-let allCats = [];
+/* ======= Model ======= */
 
-class Cat {
-    constructor(name, image) {
-        this.name = name;
-        this.image = image;
-    }
-
-    catClicks(event, imagesnumber) {
-        switch (imagesnumber) {
-            case 0:  
-            click0 += 1; 
-            click = click0;
-            break;
-            case 1:
-            click1 += 1;
-            click = click1;   
-            break; 
-            case 2:
-            click2 += 1;
-            click = click2;   
-            break; 
-            case 3:
-            click3 += 1;
-            click = click3;   
-            break; 
-            case 4:
-            click4 += 1;
-            click = click4;   
-            break; 
+var model = {
+    selectedCat: [],
+    allCats: [
+        {
+            clickCount: 0,
+            name: "Cala",
+            image: "img/catcute1.jpg"
+        }, 
+        {   
+            clickCount: 0,
+            name: "Brave",
+            image: "img/catcute2.jpg" 
+        },
+        {   
+            clickCount: 0,
+            name: "Flaca",
+            image: "img/catcute3.jpg" 
+        },
+        {   
+            clickCount: 0,
+            name : "Luke",
+            image: "img/catcute4.jpg"
+        },
+        {   
+            clickCount: 0,
+            name: "Leia",
+            image: "img/catcute5.jpg"
         }
-        event.path[0].nextSibling.textContent= click +"Cliks";
+    ]    
+};
+
+
+/* ======= Octopus ======= */
+
+var octopus = {
+
+    init: function() {
+        // set our current cat to the first one in the list
+        model.currentCat = model.allCats[0];
+        // tell our views to initialize
+        catListView.init();
+        catView.init();
+    },
+
+    getCats: function() {
+        return model.allCats;
+    },
+
+
+    getSelectedCat: function() {
+        return model.selectedCat; 
+    },
+
+    // set the currently-selected cat to the object passed in
+    setSelectedCat: function(event) {
+        model.selectedCat = [];
+        model.selectedCat.push(
+            {
+                clickCount: 0,
+                name: event.path[0].previousSibling.innerText,
+                image: event.path[0].attributes.src.nodeValue
+            }, 
+        )
+    },
+
+
+    // increments the counter for the currently-selected cat
+    incrementCounter: function(event) {
+        model.selectedCat[0].clickCount++; 
+        event.path[0].nextSibling.textContent =  model.selectedCat[0].clickCount + "Cliks";
+           
+    }
+};
+
+
+/* ======= View ======= */
+
+var catPaintView = {
+
+    paintCats: function  ( content, array, type) {
+
+        content.innerHTML="";
+        const fragment = document.createDocumentFragment();
+        for ( item of array) { 
+            
+            const newName = document.createElement("p");
+            newName.className = "catName";
+            newName.textContent = item.name;
+    
+            const newImage = document.createElement('img');
+            newImage.setAttribute("src", item.image);
+            newImage.setAttribute("title", item.name);
+    
+            const newClick = document.createElement('p');
+               
+            const newContent = document.createElement("article"); 
+    
+            switch (type) {
+                case 0:
+                newImage.className = "catImage";
+                newContent.className = "catArticle";
+                newClick.className = "catClicks";
+                break;
+                case 1: 
+                newImage.className = "catImageSelected";
+                newContent.className = "catArtibleSeleted";
+                newClick.className = "catClicksSelected";
+                break;
+            }
+    
+            newContent.appendChild(newName);
+            newContent.appendChild(newImage); 
+            newContent.appendChild(newClick);
+    
+            fragment.appendChild(newContent);    
+        } 
+        content.appendChild(fragment);
     }
 }
 
+var catView = {
 
-allCats.push(
-    new Cat("Cala","img/catcute1.jpg"),
-    new Cat("Brave","img/catcute2.jpg"),
-    new Cat("Flaca","img/catcute3.jpg"),
-    new Cat("Luke","img/catcute4.jpg"),
-    new Cat("Leia","img/catcute5.jpg")
-);
+    init: function() {
+        this.selectedCatContent = document.querySelector(".cats");
+        // render this view (update the DOM elements with the right values)
+        this.render();
+    },
 
-//console.log(allCats);
+    render: function() {
+        // update the DOM elements with values from the current cat
+        catPaintView.paintCats(this.selectedCatContent, octopus.getSelectedCat(), 1);
 
-const cats = document.querySelector(".cats");
-const fragment = document.createDocumentFragment();
-for ( cat of allCats) { 
-      
-    const newName = document.createElement("p");
-    newName.className = "catName";
-    newName.textContent = cat.name;
+        this.selectedCatImage = document.querySelectorAll("img.catImageSelected");
+        for (let i=0; i<this.selectedCatImage.length; i++ ) {  
+            this.selectedCatImage[i].addEventListener('click', function(){
+                octopus.incrementCounter(event);
+           });
+        }
+    }
+};
 
-    const newImage = document.createElement('img'); 
-    newImage.className = "catImage";
-    newImage.setAttribute("src", cat.image);
-    newImage.setAttribute("title", cat.name);
+var catListView = {
 
-    const newClick = document.createElement('p');
-    newClick.className = "catClicks";
-    
-    const newContent = document.createElement("article"); 
-    newContent.appendChild(newName);
-    newContent.appendChild(newImage); 
-    newContent.appendChild(newClick);
+    init: function() {
+        // store the DOM element for easy access later
+        this.catListContent= document.querySelector(".cats-list");
 
-    fragment.appendChild(newContent);    
-} 
-cats.appendChild(fragment);
+        // render this view (update the DOM elements with the right values)
+        this.render();
+    },
 
+    render: function () {
 
-var catImages = document.querySelectorAll("img");
-for (let i=0; i<catImages.length; i++ ) {  
-    catImages[i].addEventListener('click', function(){
-        cat.catClicks(event, i);
-    });
-}
+        catPaintView.paintCats(this.catListContent, octopus.getCats(), 0);
+
+        this.catImages = document.querySelectorAll("img.catImage");
+        for (let i=0; i < this.catImages.length; i++ ) { 
+            cat = this.catImages[i];
+            cat.addEventListener('click', (function() {
+                return function() {
+                    octopus.setSelectedCat(event);
+                    catView.render();
+                };
+            })(cat));
+        }
+    },
+  
+};
+
+// make it go!
+octopus.init(); 
 
