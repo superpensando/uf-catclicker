@@ -32,15 +32,20 @@ h1 {
     color: #777;
 }
 
-section {
+section.cats-list {
     width:100%;
-    color: #aa7ecd;
+    color: white;
+    overflow: hidden;
+    border:5px solid #aa7ecd;
+    background-color:  #aa7ecd;
 }
 
 section.cats {
-    width:50%;
-    border: 5px dotted #aa7ecd;
-    min-height:30rem; 
+    width:30%;
+    border: 5px solid #aa7ecd;
+    min-height:30rem;
+    margin:1rem 0; 
+
 }
 
 article.catArticle {
@@ -48,14 +53,23 @@ article.catArticle {
     float:left;
 }
 
+article.catArticle img {
+    display:block; 
+    width:auto;
+    max-width:100%; 
+    margin:0 auto;
+    padding:0.5rem; 
+    height:10rem; 
+}
+
 
 .catName {
     text-align: center; 
     font-size:2rem; 
+    margin:0.5rem; 
 }
 
 .catImage, .catImageSelected {
-    border: 5px solid #aa7ecd;
     width:100%; 
     cursor: pointer;
 }
